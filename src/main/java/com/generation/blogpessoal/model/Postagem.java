@@ -1,6 +1,6 @@
 package com.generation.blogpessoal.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +28,7 @@ public class Postagem {
 	private String texto;
 	
 	@UpdateTimestamp // ATUALIZA A DATA E A HORA DE QUALQUER ALTERAÇÃO DO POST, DE ACORDO COM O HORÁRIO DO SISTEMA
-	private LocalDate data; // LOCALDATE SE TRATA DE UMA CLASSE QUE POSSUI MÉTODOS PARA SUA MANIPULAÇÃO
+	private LocalDateTime data; // LOCALDATE SE TRATA DE UMA CLASSE QUE POSSUI MÉTODOS PARA SUA MANIPULAÇÃO
 	
 	public Long getId() {
 		return id;
@@ -48,10 +48,10 @@ public class Postagem {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-	public LocalDate getData() {
+	public LocalDateTime getData() {
 		return data;
 	}
-	public void setData(LocalDate data) {
+	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
 	
