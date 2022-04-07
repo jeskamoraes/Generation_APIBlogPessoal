@@ -52,6 +52,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- BANCO DE DADOS UTILIZADO SOMENTE PARA REALIZAR OS TESTES -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
