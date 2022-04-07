@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.generation.blogpessoal.model.Usuario;
+import com.generation.blogpessoal.model.UsuarioLogin;
 import com.generation.blogpessoal.repository.UsuarioRepository;
 import com.generation.blogpessoal.service.UsuarioService;
 
@@ -132,4 +133,37 @@ public class UsuarioControllerTest {
 
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 	}
+    
+    @Test
+    @Order(5)
+    @DisplayName("Listar pelo id")
+	public void deveListarUsuarioPeloId() {
+    	Optional<Usuario> usuarioBuscarId = usuarioService.cadastrarUsuario(new Usuario(0L, 
+    			"Juliana Andrews", "juliana_andrews@email.com.br", 
+    			"juliana123", "https://i.imgur.com/yDRVeK7.jpg"));
+    	
+    	ResponseEntity<String> resposta = testRestTemplate
+    			.withBasicAuth("root", "root")
+    			.exchange("/usuarios/" + usuarioBuscarId.get().getId(), HttpMethod.GET, null, String.class);
+
+		assertEquals(HttpStatus.OK, resposta.getStatusCode());
+
+    }
+    
+    @Test
+    @Order(6)
+    @DisplayName("Validar login")
+    public void deveAutenticarUsuario() {
+    	usuarioService.cadastrarUsuario(new Usuario(0L, 
+    			"Marisa Souza", "marisa_souza@email.com.br", "13465278", "https://i.imgur.com/T12NIp9.jpg"));
+    	
+    	HttpEntity<UsuarioLogin> corpoRequisicao = new HttpEntity<UsuarioLogin>(new UsuarioLogin(0L, 
+    			"", "marisa_souza@email.com.br", "13465278", "", ""));
+    	
+    	ResponseEntity<UsuarioLogin> corpoResposta = testRestTemplate
+    			.exchange("/usuarios/logar", HttpMethod.POST, corpoRequisicao, UsuarioLogin.class);
+    	
+    	assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
+
+    }
 }
